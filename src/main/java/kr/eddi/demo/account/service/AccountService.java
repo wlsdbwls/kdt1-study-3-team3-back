@@ -5,4 +5,5 @@ import kr.eddi.demo.account.service.request.NormalAccountRegisterRequest;
 
 public interface AccountService {
     Boolean normalAccountRegister(NormalAccountRegisterRequest request);
+    Boolean businessAccountRegister(BusinessAccountRegisterRequest request);
 }

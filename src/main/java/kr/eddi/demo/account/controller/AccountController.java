@@ -1,5 +1,6 @@
 package kr.eddi.demo.account.controller;
 
+import kr.eddi.demo.account.controller.form.BusinessAccountRegisterForm;
 import kr.eddi.demo.account.controller.form.NormalAccountRegisterForm;
 import kr.eddi.demo.account.service.AccountService;
 import lombok.RequiredArgsConstructor;
@@ -19,5 +20,10 @@ public class AccountController {
     @PostMapping("/normal-register")
     public Boolean normalAccountRegister (@RequestBody NormalAccountRegisterForm requestForm) {
         return accountService.normalAccountRegister(requestForm.toAccountRegisterRequest());
+    }
+
+    @PostMapping("/business-register")
+    public Boolean businessAccountRegister (@RequestBody BusinessAccountRegisterForm requestForm) {
+        return accountService.businessAccountRegister(requestForm.toAccountRegisterRequest());
     }
 }
