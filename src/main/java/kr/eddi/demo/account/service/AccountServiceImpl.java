@@ -1,5 +1,6 @@
 package kr.eddi.demo.account.service;
 
+import kr.eddi.demo.account.controller.form.AccountLoginRequestForm;
 import kr.eddi.demo.account.entity.Account;
 import kr.eddi.demo.account.entity.AccountRole;
 import kr.eddi.demo.account.entity.Role;
@@ -11,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Slf4j
 @Service
@@ -20,6 +22,7 @@ public class AccountServiceImpl implements AccountService{
     final private AccountRepository accountRepository;
     final private AccountRoleRepository accountRoleRepository;
     final private RoleRepository roleRepository;
+    final private UserTokenRepository userTokenRepository = UserTokenRepositoryImpl.getInstance();
 
     // 일반 회원(구매자)의 회원가입
     @Override
@@ -70,5 +73,23 @@ public class AccountServiceImpl implements AccountService{
         accountRoleRepository.save(accountRole);
 
         return true;
+    }
+
+    // 회원 로그인
+    @Override
+    public String login(AccountLoginRequestForm requestForm) {
+        Optional<Account> maybeAccount = accountRepository.findByEmail(requestForm.getEmail());
+        // 이메일 확인 후 비밀번호 검사
+        if(maybeAccount.isPresent()) {
+            if(requestForm.getPassword().equals(maybeAccount.get().getPassword())) {
+                // 맞으면 해당 계정 가져와서 토큰 부여 후 반환
+                final Account account = maybeAccount.get();
+                final String userToken = UUID.randomUUID().toString();
+                userTokenRepository.save(userToken, account.getId());
+                return userToken;
+            }
+        }
+
+        return null;
     }
 }

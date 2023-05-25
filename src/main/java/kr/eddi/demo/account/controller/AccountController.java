@@ -1,5 +1,6 @@
 package kr.eddi.demo.account.controller;
 
+import kr.eddi.demo.account.controller.form.AccountLoginRequestForm;
 import kr.eddi.demo.account.controller.form.BusinessAccountRegisterForm;
 import kr.eddi.demo.account.controller.form.NormalAccountRegisterForm;
 import kr.eddi.demo.account.service.AccountService;
@@ -25,5 +26,11 @@ public class AccountController {
     @PostMapping("/business-register")
     public Boolean businessAccountRegister (@RequestBody BusinessAccountRegisterForm requestForm) {
         return accountService.businessAccountRegister(requestForm.toAccountRegisterRequest());
+    }
+
+    @PostMapping("/login")
+    public String accountLogin(@RequestBody AccountLoginRequestForm accountLoginRequestForm) {
+        String userToken = accountService.login(accountLoginRequestForm);
+        return userToken;
     }
 }
