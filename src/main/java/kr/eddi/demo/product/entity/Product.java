@@ -1,11 +1,12 @@
 package kr.eddi.demo.product.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.ToString;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -17,7 +18,20 @@ public class Product {
 
     private String productName;
     private Integer productPrice;
-    private String productImg;
     private String productInfo;
 
+    @JsonManagedReference
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+    private List<ProductImages> productImagesList = new ArrayList<>();
+
+    public Product(String productName, Integer productPrice, String productInfo) {
+        this.productName = productName;
+        this.productPrice = productPrice;
+        this.productInfo = productInfo;
+    }
+
+    public void setProductImages(ProductImages productImg) {
+        productImg.setProduct(this);
+        productImagesList.add(productImg);
+    }
 }
