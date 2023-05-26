@@ -16,4 +16,9 @@ public class UserTokenRepositoryImpl implements UserTokenRepository{
     public void save(String userToken, Long id) {
         userTokenMap.put(userToken, id);
     }
+
+    @Override
+    public Long findAccountIdByUserToken(String userToken) {
+        return userTokenMap.get(userToken);
+    }
 }
