@@ -5,6 +5,7 @@ import kr.eddi.demo.product.controller.form.ProductRegisterRequestForm;
 import kr.eddi.demo.product.entity.Product;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,6 +31,11 @@ public class ProductController {
         log.info("readProduct()");
         return productService.read(id);
     }
+
+    @DeleteMapping("/{id}")
+    public void deleteProduct(@PathVariable("id") Long id){
+        log.info("deleteProduct()");
+        productService.delete(id);}
 
     @PostMapping(value = "/register",
     consumes = {MediaType.MULTIPART_FORM_DATA_VALUE,

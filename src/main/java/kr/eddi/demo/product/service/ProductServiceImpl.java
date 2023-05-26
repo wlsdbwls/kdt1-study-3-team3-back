@@ -37,6 +37,9 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
+    public void delete(Long id) {
+        productRepository.deleteById(id);
+    }
     public Boolean register(ProductRegisterRequest request, List<MultipartFile> productImg) {
 
         final List<ProductImages> productImagesList = new ArrayList<>();

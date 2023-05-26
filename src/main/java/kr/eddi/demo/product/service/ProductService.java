@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface ProductService {
     Product read(Long id);
-
-
+    void delete(Long id);
     Boolean register(ProductRegisterRequest productRegisterRequest, List<MultipartFile> productImg);
+
 }
