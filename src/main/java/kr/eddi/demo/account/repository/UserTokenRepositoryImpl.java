@@ -19,6 +19,8 @@ public class UserTokenRepositoryImpl implements UserTokenRepository{
 
     @Override
     public Long findAccountIdByUserToken(String userToken) {
+//        userTokenMap.put("3031518d-a116-4244-aa4d-5b90561a2e55",1L)
+        // 로그인 후 스프링 재실행 시 상품 등록 테스트할 때 userToken 가지고 하는 방법
         return userTokenMap.get(userToken);
     }
 }
