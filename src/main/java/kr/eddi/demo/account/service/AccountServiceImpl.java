@@ -54,11 +54,6 @@ public class AccountServiceImpl implements AccountService{
             return false;
         }
 
-        // 계정 생성
-        final Account account = accountRepository.save(request.toAccount());
-
-        // 회원 타입 부여
-        final Role role = roleRepository.findByRoleType(request.getRoleType()).get();
         final Long businessNumber = request.getBusinessNumber();
 
         // 중복 사업자 번호 확인
@@ -68,6 +63,12 @@ public class AccountServiceImpl implements AccountService{
         if(maybeAccountRole.isPresent()) {
             return false;
         }
+
+        // 계정 생성
+        final Account account = accountRepository.save(request.toAccount());
+
+        // 회원 타입 부여
+        final Role role = roleRepository.findByRoleType(request.getRoleType()).get();
 
         final AccountRole accountRole = new AccountRole(role, account, businessNumber);
         accountRoleRepository.save(accountRole);
