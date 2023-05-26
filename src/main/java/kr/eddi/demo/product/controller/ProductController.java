@@ -3,10 +3,7 @@ package kr.eddi.demo.product.controller;
 import kr.eddi.demo.product.entity.Product;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import kr.eddi.demo.product.service.ProductService;
 
@@ -23,4 +20,9 @@ public class ProductController {
         log.info("readProduct()");
         return productService.read(id);
     }
+
+    @DeleteMapping("/{id}")
+    public void deleteProduct(@PathVariable("id") Long id){
+        log.info("deleteProduct()");
+        productService.delete(id);}
 }
