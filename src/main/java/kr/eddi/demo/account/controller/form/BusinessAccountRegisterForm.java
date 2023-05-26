@@ -11,7 +11,7 @@ public class BusinessAccountRegisterForm {
     final private String email;
     final private String password;
     final private RoleType roleType;
-    final private Long businessNumber;
+    final private Long businessNumber; //사업자 등록번호
 
     public BusinessAccountRegisterRequest toAccountRegisterRequest () {
 

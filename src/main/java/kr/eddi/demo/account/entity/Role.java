@@ -1,6 +1,7 @@
 package kr.eddi.demo.account.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
