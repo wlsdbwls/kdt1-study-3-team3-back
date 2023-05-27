@@ -110,4 +110,9 @@ public class AccountServiceImpl implements AccountService{
         log.info("roleType: " + role.getRoleType());
         return role.getRoleType();
     }
+
+    @Override
+    public Long findAccountId(String userToken) {
+        return userTokenRepository.findAccountIdByUserToken(userToken);
+    }
 }
