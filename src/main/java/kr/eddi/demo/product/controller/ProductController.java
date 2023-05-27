@@ -1,6 +1,7 @@
 package kr.eddi.demo.product.controller;
 
 import kr.eddi.demo.account.service.AccountService;
+import kr.eddi.demo.product.controller.form.ProductListResponseForm;
 import kr.eddi.demo.product.controller.form.ProductRegisterRequestForm;
 import kr.eddi.demo.product.entity.Product;
 import lombok.RequiredArgsConstructor;
@@ -49,5 +50,11 @@ public class ProductController {
         }
 
         return productService.register(registerRequestForm.toProductRegisterRequest(), productImg);
+    }
+    @PostMapping("/list")
+    public List<ProductListResponseForm> list (){
+        List<ProductListResponseForm> returnList;
+        returnList=productService.list();
+        return returnList;
     }
 }
