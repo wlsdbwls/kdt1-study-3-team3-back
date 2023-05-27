@@ -1,5 +1,6 @@
 package kr.eddi.demo.product.service;
 
+import kr.eddi.demo.product.controller.form.ProductListResponseForm;
 import kr.eddi.demo.product.entity.Product;
 import kr.eddi.demo.product.entity.ProductImages;
 import kr.eddi.demo.product.repository.ProductImagesRepository;
@@ -76,6 +77,17 @@ public class ProductServiceImpl implements ProductService{
         productImagesRepository.saveAll(productImagesList);
 
         return true;
+    }
+    @Override
+    public List<ProductListResponseForm> list() {
+        List<ProductListResponseForm> tmpList=new ArrayList<>();
+        List<Product> products=productRepository.findAll();
+        for (Product product:products ){
+            List<ProductImages> maybeImages=productImagesRepository.findByProductId(product.getId());
+            ProductListResponseForm responseForm=new ProductListResponseForm(product, maybeImages.get(0).toString());
+            tmpList.add(responseForm);
+        }
+        return tmpList;
     }
         // 등록할 수 있는 사람이면 상품을 등록하도록
 
