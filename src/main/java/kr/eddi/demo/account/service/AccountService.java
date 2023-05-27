@@ -11,4 +11,6 @@ public interface AccountService {
     String login(AccountLoginRequestForm requestForm);
 
     RoleType lookup(String userToken);
+
+    Long findAccountId(String userToken);
 }
