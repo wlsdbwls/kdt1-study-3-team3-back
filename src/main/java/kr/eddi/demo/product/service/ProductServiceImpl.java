@@ -1,6 +1,7 @@
 package kr.eddi.demo.product.service;
 
 import kr.eddi.demo.product.controller.form.ProductListResponseForm;
+import kr.eddi.demo.product.controller.form.ProductReadResponseForm;
 import kr.eddi.demo.product.entity.Product;
 import kr.eddi.demo.product.entity.ProductImages;
 import kr.eddi.demo.product.repository.ProductImagesRepository;
@@ -27,14 +28,19 @@ public class ProductServiceImpl implements ProductService{
     final private ProductImagesRepository productImagesRepository;
 
     @Override
-    public Product read(Long id){
-        Optional<Product> maybeProduct = productRepository.findById(id);
+    public ProductReadResponseForm read(Long id) {
+        final Optional<Product> maybeProduct = productRepository.findById(id);
 
         if (maybeProduct.isEmpty()) {
             log.info("존재하지 않는 상품id입니다.");
             return null;
         }
-        return maybeProduct.get();
+        final Product product = maybeProduct.get();
+        final List<ProductImages> productImagesList = productImagesRepository.findImagePathByProductId(id);
+
+        log.info("productImagesList: " + productImagesList);
+
+        return new ProductReadResponseForm(product, productImagesList);
     }
 
     @Override

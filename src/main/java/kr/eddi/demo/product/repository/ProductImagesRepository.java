@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface ProductImagesRepository extends JpaRepository<ProductImages, Long> {
     @Query("select pi from ProductImages pi join fetch pi.product p where p.id = :productId")
-    ProductImages findImagePathByProductId(Long productId);
+    List<ProductImages> findImagePathByProductId(Long productId);
 
     List<ProductImages> findByProductId(Long id);
 }

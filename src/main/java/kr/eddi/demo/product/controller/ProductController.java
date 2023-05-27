@@ -2,6 +2,7 @@ package kr.eddi.demo.product.controller;
 
 import kr.eddi.demo.account.service.AccountService;
 import kr.eddi.demo.product.controller.form.ProductListResponseForm;
+import kr.eddi.demo.product.controller.form.ProductReadResponseForm;
 import kr.eddi.demo.product.controller.form.ProductRegisterRequestForm;
 import kr.eddi.demo.product.entity.Product;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +29,7 @@ public class ProductController {
     final private AccountService accountService;
 
     @GetMapping("/{id}")
-    public Product readProduct(@PathVariable("id") Long id) {
+    public ProductReadResponseForm readProduct(@PathVariable("id") Long id) {
         log.info("readProduct()");
         return productService.read(id);
     }
