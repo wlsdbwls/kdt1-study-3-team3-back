@@ -38,7 +38,7 @@ public class OrderServiceImpl implements OrderService{
         }
 
         final Account account = maybeAccount.get();
-        final Role role = accountRoleRepository.findRoleInfoByAccount(account);
+        final Role role = accountRoleRepository.findRoleByAccount(account);
 
         if (role.getRoleType() != NORMAL) {
             return null;
