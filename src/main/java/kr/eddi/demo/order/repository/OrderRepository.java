@@ -12,5 +12,5 @@ public interface OrderRepository extends JpaRepository<Orders, Long> {
             "JOIN orders o ON p.id = o.product_id " +
             "JOIN account a ON o.account_account_id = a.account_id " +
             "WHERE a.account_id = :accountId", nativeQuery = true)
-    List<Object[]> findAllProductInfoByAccount(Long accountId);
+    List<Object[]> findAllProductByAccount(Long accountId);
 }
