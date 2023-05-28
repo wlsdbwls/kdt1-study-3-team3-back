@@ -6,6 +6,7 @@ import kr.eddi.demo.account.repository.AccountRepository;
 import kr.eddi.demo.account.repository.AccountRoleRepository;
 import kr.eddi.demo.account.repository.UserTokenRepository;
 import kr.eddi.demo.account.repository.UserTokenRepositoryImpl;
+import kr.eddi.demo.order.controller.form.OrderResponseForm;
 import kr.eddi.demo.order.entity.Orders;
 import kr.eddi.demo.order.repository.OrderRepository;
 import kr.eddi.demo.order.service.request.OrderRegisterRequest;
@@ -15,6 +16,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static kr.eddi.demo.account.entity.RoleType.NORMAL;
@@ -54,5 +57,28 @@ public class OrderServiceImpl implements OrderService{
         orderRepository.save(orders);
 
         return true;
+    }
+
+    @Override
+    public List<OrderResponseForm> orderList(Long accountId) {
+        final List<Object[]> ordersList = orderRepository.findAllProductInfoByAccount(accountId);
+        final List<OrderResponseForm> responseFormList = new ArrayList<>();
+
+        for (Object[] row : ordersList) {
+            Long productId = (Long) row[0];
+            String productInfo = (String) row[1];
+            String productName = (String) row[2];
+            Integer productPrice = (Integer) row[3];
+
+            System.out.println("Product ID: " + productId);
+            System.out.println("Product Info: " + productInfo);
+            System.out.println("Product Name: " + productName);
+            System.out.println("Product Price: " + productPrice);
+            System.out.println("------------------------");
+
+            responseFormList.add(new OrderResponseForm(productId, productName, productPrice, productInfo));
+        }
+
+        return responseFormList;
     }
 }
