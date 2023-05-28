@@ -13,4 +13,6 @@ public interface AccountService {
     RoleType lookup(String userToken);
 
     Long findAccountId(String userToken);
+
+    Boolean businessCheck(Long accountId);
 }
