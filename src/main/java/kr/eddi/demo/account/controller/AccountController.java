@@ -2,6 +2,7 @@ package kr.eddi.demo.account.controller;
 
 import kr.eddi.demo.account.controller.form.AccountLoginRequestForm;
 import kr.eddi.demo.account.controller.form.BusinessAccountRegisterForm;
+import kr.eddi.demo.account.controller.form.BusinessCheckRequestForm;
 import kr.eddi.demo.account.controller.form.NormalAccountRegisterForm;
 import kr.eddi.demo.account.service.AccountService;
 import lombok.RequiredArgsConstructor;
@@ -32,5 +33,18 @@ public class AccountController {
     public String accountLogin(@RequestBody AccountLoginRequestForm accountLoginRequestForm) {
         String userToken = accountService.login(accountLoginRequestForm);
         return userToken;
+    }
+    @PostMapping("/businessCheck")
+    public Boolean isBusiness(@RequestBody BusinessCheckRequestForm requestForm){
+       log.info(requestForm.getUserToken());
+       String userToken= requestForm.getUserToken();
+        Long businessId=accountService.findAccountId(userToken);
+        log.info("businessId: "+businessId);
+        if (businessId==null){
+            return false;
+        }
+        Boolean isBusinessMan= accountService.businessCheck(businessId);
+        log.info(String.valueOf(isBusinessMan));
+        return isBusinessMan;
     }
 }

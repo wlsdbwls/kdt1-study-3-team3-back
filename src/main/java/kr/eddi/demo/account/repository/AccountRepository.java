@@ -1,6 +1,7 @@
 package kr.eddi.demo.account.repository;
 
 import kr.eddi.demo.account.entity.Account;
+import kr.eddi.demo.account.entity.AccountRole;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
