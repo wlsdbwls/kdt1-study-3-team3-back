@@ -69,7 +69,7 @@ public class OrderServiceImpl implements OrderService{
 
     @Override
     public List<OrderResponseForm> orderList(Long accountId) {
-        final List<Object[]> ordersList = orderRepository.findAllProductInfoByAccount(accountId);
+        final List<Object[]> ordersList = orderRepository.findAllProductByAccount(accountId);
         final List<OrderResponseForm> responseFormList = new ArrayList<>();
 
         for (Object[] row : ordersList) {
@@ -81,10 +81,6 @@ public class OrderServiceImpl implements OrderService{
             final List<ProductImages> productImagesList =
                     productImagesRepository.findImagePathByProductId(productId);
 
-            for (ProductImages imagesPath : productImagesList) {
-                imagesPath.getImageResourcePath();
-            }
-
             System.out.println("Product ID: " + productId);
             System.out.println("Product Info: " + productInfo);
             System.out.println("Product Name: " + productName);
@@ -92,7 +88,7 @@ public class OrderServiceImpl implements OrderService{
             System.out.println("------------------------");
 
             responseFormList.add(new OrderResponseForm(
-                    productId, productName, productPrice, productInfo, ));
+                    productId, productName, productPrice, productInfo, productImagesList));
         }
 
         return responseFormList;
