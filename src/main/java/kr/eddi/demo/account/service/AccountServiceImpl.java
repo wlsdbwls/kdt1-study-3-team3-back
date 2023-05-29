@@ -131,4 +131,13 @@ public class AccountServiceImpl implements AccountService{
         }
         return false;
     }
+
+    @Override
+    public String findAccountEmail(Long accountId) {
+        Optional<Account> maybeAccount = accountRepository.findById(accountId);
+        if(maybeAccount.isPresent()) {
+            String email = maybeAccount.get().getEmail();
+            return email;
+        } return null;
+    }
 }
