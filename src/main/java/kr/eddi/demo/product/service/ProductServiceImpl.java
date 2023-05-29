@@ -92,7 +92,7 @@ public class ProductServiceImpl implements ProductService{
         List<Product> products=productRepository.findAll();
         for (Product product:products ){
             List<ProductImages> maybeImages=productImagesRepository.findByProductId(product.getId());
-            ProductListResponseForm responseForm=new ProductListResponseForm(product, maybeImages.get(0).toString());
+            ProductListResponseForm responseForm=new ProductListResponseForm(product, maybeImages.get(0).getImageResourcePath());
             tmpList.add(responseForm);
         }
         return tmpList;

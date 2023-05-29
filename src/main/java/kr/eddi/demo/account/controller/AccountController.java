@@ -1,8 +1,8 @@
 package kr.eddi.demo.account.controller;
 
-import kr.eddi.demo.account.controller.form.AccountLoginRequestForm;
-import kr.eddi.demo.account.controller.form.BusinessAccountRegisterForm;
-import kr.eddi.demo.account.controller.form.NormalAccountRegisterForm;
+import kr.eddi.demo.account.controller.form.*;
+import kr.eddi.demo.account.entity.Role;
+import kr.eddi.demo.account.entity.RoleType;
 import kr.eddi.demo.account.service.AccountService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,5 +32,30 @@ public class AccountController {
     public String accountLogin(@RequestBody AccountLoginRequestForm accountLoginRequestForm) {
         String userToken = accountService.login(accountLoginRequestForm);
         return userToken;
+    }
+    @PostMapping("/businessCheck")
+    public Boolean isBusiness(@RequestBody BusinessCheckRequestForm requestForm){
+       log.info(requestForm.getUserToken());
+       String userToken= requestForm.getUserToken();
+        Long businessId=accountService.findAccountId(userToken);
+        log.info("businessId: "+businessId);
+        if (businessId==null){
+            return false;
+        }
+        Boolean isBusinessMan= accountService.businessCheck(businessId);
+        log.info(String.valueOf(isBusinessMan));
+        return isBusinessMan;
+    }
+
+    @PostMapping("/getAccountInfo")
+    public AccountMyPageResponseForm getAccountInfo(@RequestBody BusinessCheckRequestForm requestForm) {
+        String userToken = requestForm.getUserToken();
+        Long accountId = accountService.findAccountId(userToken);
+
+        String email = accountService.findAccountEmail(accountId);
+        RoleType roleType = accountService.lookup(userToken);
+
+        AccountMyPageResponseForm accountMyPageResponseForm = new AccountMyPageResponseForm(email, roleType);
+        return accountMyPageResponseForm;
     }
 }

@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 import java.util.UUID;
 
+import static kr.eddi.demo.account.entity.RoleType.BUSINESS;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -113,6 +115,29 @@ public class AccountServiceImpl implements AccountService{
 
     @Override
     public Long findAccountId(String userToken) {
-        return userTokenRepository.findAccountIdByUserToken(userToken);
+    Long userToken1=userTokenRepository.findAccountIdByUserToken(userToken);
+        return userToken1;
+    }
+
+    @Override
+    public Boolean businessCheck(Long accountId) {
+        Optional<AccountRole> maybeAccountRole =accountRoleRepository.findByAccount_IdWithRole(accountId);
+
+        log.info("가져온 어카운트 롤 ID: "+String.valueOf(maybeAccountRole.get().getId()));
+        log.info("어카운트 롤의 롤타입: "+String.valueOf(maybeAccountRole.get().getRole().getRoleType()));
+        Role role= maybeAccountRole.get().getRole();
+        if (role.getRoleType().equals(BUSINESS)){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public String findAccountEmail(Long accountId) {
+        Optional<Account> maybeAccount = accountRepository.findById(accountId);
+        if(maybeAccount.isPresent()) {
+            String email = maybeAccount.get().getEmail();
+            return email;
+        } return null;
     }
 }
