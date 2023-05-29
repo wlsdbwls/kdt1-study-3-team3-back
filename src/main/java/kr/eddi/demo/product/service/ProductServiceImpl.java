@@ -36,8 +36,9 @@ public class ProductServiceImpl implements ProductService{
             return null;
         }
         final Product product = maybeProduct.get();
-        final List<ProductImages> productImagesList = productImagesRepository.findImagePathByProductId(id);
-
+        log.info("product:" + product);
+        //final List<ProductImages> productImagesList = productImagesRepository.findImagePathByProductId(id);
+        final List<ProductImages> productImagesList = productImagesRepository.findByProductId(product.getId());
         log.info("productImagesList: " + productImagesList);
 
         return new ProductReadResponseForm(product, productImagesList);
@@ -45,6 +46,7 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public void delete(Long id) {
+        productImagesRepository.deleteAllByProductId(id);
         productRepository.deleteById(id);
     }
     public Boolean register(ProductRegisterRequest request, List<MultipartFile> productImg) {
@@ -96,5 +98,9 @@ public class ProductServiceImpl implements ProductService{
         return tmpList;
     }
         // 등록할 수 있는 사람이면 상품을 등록하도록
-
+    @Override
+    public void modifiy(Long id) {
+        productImagesRepository.deleteAllByProductId(id);
+        productRepository.deleteById(id);
+    }
 }
