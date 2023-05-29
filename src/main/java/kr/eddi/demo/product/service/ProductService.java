@@ -16,4 +16,5 @@ public interface ProductService {
     Boolean register(ProductRegisterRequest productRegisterRequest, List<MultipartFile> productImg);
 
     List<ProductListResponseForm> list();
+    Product modify(Long productId, ProductRegisterRequest requestForm);
 }

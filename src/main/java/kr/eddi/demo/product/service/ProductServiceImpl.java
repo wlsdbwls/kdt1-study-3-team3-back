@@ -99,8 +99,19 @@ public class ProductServiceImpl implements ProductService{
     }
         // 등록할 수 있는 사람이면 상품을 등록하도록
     @Override
-    public void modifiy(Long id) {
-        productImagesRepository.deleteAllByProductId(id);
-        productRepository.deleteById(id);
+    public Product modify(Long id, ProductRegisterRequest requestForm){
+        Optional<Product> maybeProduct = productRepository.findById(id);
+
+        if(maybeProduct.isEmpty()){
+            log.info("존재하지 않는 상품id입니다.");
+            return null;
+        }
+
+        Product product = maybeProduct.get();
+        product.setProductName(requestForm.getProductName());
+        product.setProductPrice(requestForm.getProductPrice());
+        product.setProductInfo(requestForm.getProductInfo());
+
+        return productRepository.save(product);
     }
 }
