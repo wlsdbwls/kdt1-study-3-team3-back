@@ -78,8 +78,8 @@ public class OrderServiceImpl implements OrderService{
             String productName = (String) row[2];
             Integer productPrice = (Integer) row[3];
 
-            final List<ProductImages> productImagesList =
-                    productImagesRepository.findImagePathByProductId(productId);
+            final String imageResourcePath =
+                    productImagesRepository.findImagePathByProductId(productId).get(0).getImageResourcePath();
 
             System.out.println("Product ID: " + productId);
             System.out.println("Product Info: " + productInfo);
@@ -88,7 +88,7 @@ public class OrderServiceImpl implements OrderService{
             System.out.println("------------------------");
 
             responseFormList.add(new OrderResponseForm(
-                    productId, productName, productPrice, productInfo, productImagesList));
+                    productId, productName, productPrice, productInfo, imageResourcePath));
         }
 
         return responseFormList;
