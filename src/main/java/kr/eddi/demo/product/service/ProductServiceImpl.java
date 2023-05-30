@@ -63,7 +63,7 @@ public class ProductServiceImpl implements ProductService{
 
         final List<ProductImages> productImagesList = new ArrayList<>();
 //        final String fixedDirectoryPath = "../kdt1-study-3-team3-front/src/assets/uploadImgs/";
-        final String fixedDirectoryPath = "../kdt1-study-3-team3-front/conf/img/";
+        final String fixedDirectoryPath = "../kdt1-study-3-team3-front/html/img/";
 
         Product product = request.toProduct();
         String userToken = request.getUserToken();
