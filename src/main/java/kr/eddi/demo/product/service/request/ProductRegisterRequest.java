@@ -11,6 +11,8 @@ public class ProductRegisterRequest {
     final private String productName;
     final private Integer productPrice;
     final private String productInfo;
+    final private String userToken;
+
 
     public Product toProduct() {
         return new Product(productName, productPrice, productInfo);

@@ -1,5 +1,10 @@
 package kr.eddi.demo.product.service;
 
+import kr.eddi.demo.account.entity.Account;
+import kr.eddi.demo.account.repository.AccountRepository;
+import kr.eddi.demo.account.repository.UserTokenRepository;
+import kr.eddi.demo.account.repository.UserTokenRepositoryImpl;
+import kr.eddi.demo.product.controller.form.BusinessProductListResponseForm;
 import kr.eddi.demo.product.controller.form.ProductListResponseForm;
 import kr.eddi.demo.product.controller.form.ProductReadResponseForm;
 import kr.eddi.demo.product.entity.Product;
@@ -25,8 +30,13 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService{
     final private ProductRepository productRepository;
+  
     final private ProductImagesRepository productImagesRepository;
 
+    final private AccountRepository accountRepository;
+
+    final private UserTokenRepository userTokenRepository = UserTokenRepositoryImpl.getInstance();
+  
     @Override
     public ProductReadResponseForm read(Long id) {
         final Optional<Product> maybeProduct = productRepository.findById(id);
@@ -55,6 +65,12 @@ public class ProductServiceImpl implements ProductService{
         final String fixedDirectoryPath = "../kdt1-study-3-team3-front/src/assets/uploadImgs/";
 
         Product product = request.toProduct();
+        String userToken = request.getUserToken();
+        final Long accountId = userTokenRepository.findAccountIdByUserToken(userToken);
+        Optional<Account> maybeAccount = accountRepository.findById(accountId);
+        if(maybeAccount.isPresent()) {
+            product.setAccount(maybeAccount.get());
+        }
 
         try {
             for (MultipartFile multipartFile: productImg) {
@@ -86,6 +102,7 @@ public class ProductServiceImpl implements ProductService{
 
         return true;
     }
+  
     @Override
     public List<ProductListResponseForm> list() {
         List<ProductListResponseForm> tmpList=new ArrayList<>();
@@ -97,6 +114,20 @@ public class ProductServiceImpl implements ProductService{
         }
         return tmpList;
     }
+  
+    @Override
+    public List<BusinessProductListResponseForm> businessRegisterProductList(Long accountId) {
+        List<BusinessProductListResponseForm> businessRegisterProductList = new ArrayList<>();
+        List<Product> productList = productRepository.findAllByAccountId(accountId) ;
+
+        for (Product product: productList ){
+            List<ProductImages> maybeImages=productImagesRepository.findByProductId(product.getId());
+            BusinessProductListResponseForm responseForm = new BusinessProductListResponseForm(product.getProductName(), product.getProductPrice(), product.getProductInfo(), maybeImages.get(0).getImageResourcePath());
+            businessRegisterProductList.add(responseForm);
+        }
+        return businessRegisterProductList;
+    }
+
         // 등록할 수 있는 사람이면 상품을 등록하도록
     @Override
     public Product modify(Long id, ProductRegisterRequest requestForm){
