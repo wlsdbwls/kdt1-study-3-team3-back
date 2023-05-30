@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import kr.eddi.demo.product.service.ProductService;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static kr.eddi.demo.account.entity.RoleType.BUSINESS;
@@ -59,24 +58,6 @@ public class ProductController {
         return returnList;
     }
 
-//    @PostMapping("/business-userToken")
-//    public List<BusinessProductResponseForm> businessList (@RequestBody BusinessCheckRequestForm responseForm){
-//        List<BusinessProductResponseForm> returnBusinessList;
-//        returnBusinessList = productService.businessList();
-//        return returnBusinessList;
-//
-//         //@PostMapping("/getAccountInfo")
-//        //    public AccountMyPageResponseForm getAccountInfo(@RequestBody BusinessCheckRequestForm requestForm) {
-//        //        String userToken = requestForm.getUserToken();
-//        //        Long accountId = accountService.findAccountId(userToken);
-//        //
-//        //        String email = accountService.findAccountEmail(accountId);
-//        //        RoleType roleType = accountService.lookup(userToken);
-//        //
-//        //        AccountMyPageResponseForm accountMyPageResponseForm = new AccountMyPageResponseForm(email, roleType);
-//        //        return accountMyPageResponseForm;
-//        //    }
-//    }
 
     @GetMapping("/business-product-list")
     public List<BusinessProductListResponseForm> businessRegisterProductList(BusinessProductListRequestForm requestForm) {

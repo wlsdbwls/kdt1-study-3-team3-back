@@ -116,7 +116,8 @@ public class ProductServiceImpl implements ProductService{
         List<Product> productList = productRepository.findAllByAccountId(accountId) ;
 
         for (Product product: productList ){
-            BusinessProductListResponseForm responseForm = new BusinessProductListResponseForm(product.getProductName(), product.getProductPrice(), product.getProductInfo(), product.getProductImagesList().get(0).getImageResourcePath());
+            List<ProductImages> maybeImages=productImagesRepository.findByProductId(product.getId());
+            BusinessProductListResponseForm responseForm = new BusinessProductListResponseForm(product.getProductName(), product.getProductPrice(), product.getProductInfo(), maybeImages.get(0).getImageResourcePath());
             businessRegisterProductList.add(responseForm);
         }
         return businessRegisterProductList;
