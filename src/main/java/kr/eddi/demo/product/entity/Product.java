@@ -2,8 +2,10 @@ package kr.eddi.demo.product.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import kr.eddi.demo.account.entity.Account;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 import java.util.ArrayList;
@@ -25,6 +27,11 @@ public class Product {
     @JsonManagedReference
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
     private List<ProductImages> productImagesList = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "account_id")
+    @Setter
+    private Account account;
 
     public Product(String productName, Integer productPrice, String productInfo) {
         this.productName = productName;

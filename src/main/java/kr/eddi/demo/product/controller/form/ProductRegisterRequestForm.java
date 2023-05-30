@@ -15,7 +15,7 @@ public class ProductRegisterRequestForm {
     // 유저토큰 추가하기
 
     public ProductRegisterRequest toProductRegisterRequest() {
-        return new ProductRegisterRequest(productName, productPrice, productInfo);
+        return new ProductRegisterRequest(productName, productPrice, productInfo, userToken);
     }
 
 }
