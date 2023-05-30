@@ -70,6 +70,6 @@ public class readTest {
         final Integer productPrice = 1200;
         final String productInfo = "나는야 캔디바";
         ProductRegisterRequest Form = new ProductRegisterRequest(productName, productPrice, productInfo);
-        productService.modify(3L, Form);
+        productService.modify(2L, Form);
     }
 }

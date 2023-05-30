@@ -1,5 +1,6 @@
 package kr.eddi.demo.product.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import kr.eddi.demo.account.entity.Account;
@@ -25,6 +26,7 @@ public class Product {
     private Integer productPrice;
     private String productInfo;
 
+    @JsonIgnore
     @JsonManagedReference
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
     private List<ProductImages> productImagesList = new ArrayList<>();
