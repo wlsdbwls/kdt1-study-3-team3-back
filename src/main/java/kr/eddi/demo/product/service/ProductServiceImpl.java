@@ -62,7 +62,8 @@ public class ProductServiceImpl implements ProductService{
     public Boolean register(ProductRegisterRequest request, List<MultipartFile> productImg) {
 
         final List<ProductImages> productImagesList = new ArrayList<>();
-        final String fixedDirectoryPath = "../kdt1-study-3-team3-front/src/assets/uploadImgs/";
+//        final String fixedDirectoryPath = "../kdt1-study-3-team3-front/src/assets/uploadImgs/";
+        final String fixedDirectoryPath = "../kdt1-study-3-team3-front/conf/img/";
 
         Product product = request.toProduct();
         String userToken = request.getUserToken();
