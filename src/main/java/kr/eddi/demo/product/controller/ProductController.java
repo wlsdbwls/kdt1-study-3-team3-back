@@ -58,11 +58,19 @@ public class ProductController {
         return returnList;
     }
 
-
     @GetMapping("/business-product-list")
     public List<BusinessProductListResponseForm> businessRegisterProductList(BusinessProductListRequestForm requestForm) {
         final Long accountId = accountService.findAccountId(requestForm.getUserToken());
 
         return productService.businessRegisterProductList(accountId);
+    }
+
+    @PutMapping("/{id}")
+    public Product modifyProduct (@PathVariable("id") Long id,
+                                  @RequestBody ProductRegisterRequest requestForm) {
+        log.info("modifyProduct(): "+  requestForm);
+        log.info("id:" + id);
+
+        return productService.modify(id, requestForm);
     }
 }
