@@ -2,6 +2,8 @@ package kr.eddi.demo.product.controller;
 
 import kr.eddi.demo.account.service.AccountService;
 import kr.eddi.demo.product.controller.form.*;
+import kr.eddi.demo.product.entity.Product;
+import kr.eddi.demo.product.service.request.ProductRegisterRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -58,11 +60,15 @@ public class ProductController {
         return returnList;
     }
 
-    @GetMapping("/business-product-list")
-    public List<BusinessProductListResponseForm> businessRegisterProductList(BusinessProductListRequestForm requestForm) {
-        final Long accountId = accountService.findAccountId(requestForm.getUserToken());
+    @PostMapping("/business-product-list")
+    public List<BusinessProductListResponseForm> businessRegisterProductList(@RequestBody BusinessProductListRequestForm requestForm) {
+        String userToken = requestForm.getUserToken();
+        final Long accountId = accountService.findAccountId(userToken);
 
-        return productService.businessRegisterProductList(accountId);
+        List<BusinessProductListResponseForm> responseList = productService.businessRegisterProductList(accountId);
+        log.info("businessRegisterProductList: " + responseList);
+
+        return responseList;
     }
 
     @PutMapping("/{id}")

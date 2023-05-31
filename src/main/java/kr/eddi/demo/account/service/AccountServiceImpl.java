@@ -100,6 +100,7 @@ public class AccountServiceImpl implements AccountService{
     @Override
     public RoleType lookup(String userToken) {
         final Long accountId = userTokenRepository.findAccountIdByUserToken(userToken);
+
         final Optional<Account> maybeAccount = accountRepository.findById(accountId);
 
         if (maybeAccount.isEmpty()) {
@@ -115,8 +116,11 @@ public class AccountServiceImpl implements AccountService{
 
     @Override
     public Long findAccountId(String userToken) {
-    Long userToken1=userTokenRepository.findAccountIdByUserToken(userToken);
-        return userToken1;
+        final Long accountId = userTokenRepository.findAccountIdByUserToken(userToken);
+
+        log.info("accountId: " + accountId);
+
+        return accountId;
     }
 
     @Override
