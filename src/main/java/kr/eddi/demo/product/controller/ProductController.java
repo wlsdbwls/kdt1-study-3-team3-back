@@ -2,6 +2,8 @@ package kr.eddi.demo.product.controller;
 
 import kr.eddi.demo.account.service.AccountService;
 import kr.eddi.demo.product.controller.form.*;
+import kr.eddi.demo.product.entity.Product;
+import kr.eddi.demo.product.service.request.ProductRegisterRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
