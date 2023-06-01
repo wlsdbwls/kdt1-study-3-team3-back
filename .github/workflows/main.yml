@@ -45,7 +45,7 @@ jobs:
       - name: Docker build & push to prod
         run: |
             docker login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GHCR_TOKEN }}
-            docker builddx create --name arm64builder --use
+            docker buildx create --name arm64builder --use
             docker buildx build --platform linux/amd64,linux/arm64 -f Dockerfile -t ghcr.io/jaegyoung/kdt1-study-3-team3-back:latest --push .
             docker logout
       
@@ -84,7 +84,7 @@ jobs:
               
               docker login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GHCR_TOKEN }}
               
-              docker pull ghcr.io/jaegyoung/kdt1-study-3-team3-back:latest
+              docker pull ghcr.io/jaegyoung/kdt1-study-3-team3-back-server:latest
               
               docker image prune -f
               docker logout
