@@ -3,6 +3,7 @@ package kr.eddi.demo.product.service;
 import kr.eddi.demo.product.controller.form.BusinessProductListResponseForm;
 import kr.eddi.demo.product.controller.form.ProductListResponseForm;
 import kr.eddi.demo.product.controller.form.ProductReadResponseForm;
+import kr.eddi.demo.product.entity.Product;
 import kr.eddi.demo.product.service.request.ProductRegisterRequest;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
