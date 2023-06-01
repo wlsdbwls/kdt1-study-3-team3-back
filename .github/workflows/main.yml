@@ -21,18 +21,18 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '17'
-          distribution: 'zulu' # httpsL//github.com/actions/setup-java
+          distribution: 'corretto' # httpsL//github.com/actions/setup-java
     
       ## gradle caching
       - name: Gradle Caching
         uses: actions/cache@v3
         with:
           path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-            key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-            restore-keys: |
-            ${{ runner.os }}-gradle-
+              ~/.gradle/caches
+              ~/.gradle/wrapper
+              key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+              restore-keys: |
+              ${{ runner.os }}-gradle-
       
       ## gradle build
       - name: Build with Gradle
