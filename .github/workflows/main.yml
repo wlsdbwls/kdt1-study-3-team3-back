@@ -8,8 +8,8 @@ on:
 env:
   DOCKER_IMAGE: ghcr.io/${{ github.actor }}/kdt1-study-3-team3-back
   VERSION: ${{ github.sha }}
-  NAME: kdt1-study-3-team3-back-server
-  
+  NAME: kdt1-study-3-team1-back
+
 jobs:
   build:
     name: Build
@@ -21,9 +21,9 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '17'
-          distribution: 'corretto' # https://github.com/actions/setup-java
-    
-       ## gradle caching
+          distribution: 'zulu' # https://github.com/actions/setup-java
+          
+      ## grable cacing
       - name: Gradle Caching
         uses: actions/cache@v3
         with:
@@ -36,7 +36,7 @@ jobs:
             
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
-      
+            
       ## gradle build
       - name: Build with Gradle
         run: ./gradlew build -x test
@@ -44,10 +44,10 @@ jobs:
       ## docker build & push to production
       - name: Docker build & push to prod
         run: |
-            docker login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GHCR_TOKEN }}
-            docker buildx create --name arm64builder --use
-            docker buildx build --platform linux/amd64,linux/arm64 -f Dockerfile -t ghcr.io/jaegyoung/kdt1-study-3-team3-back:latest --push .
-            docker logout
+          docker login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GHCR_TOKEN }}
+          docker buildx create --name arm64builder --use
+          docker buildx build --platform linux/amd64,linux/arm64 -f Dockerfile -t ghcr.io/jaegyoung/kdt1-study-3-team3-back:latest --push .
+          docker logout
            
   deploy:
     needs: build
