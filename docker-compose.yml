@@ -1,0 +1,13 @@
+version: "3.7"
+services:
+  server:
+    image: "gyulbe/backend-server:latest"
+    build: .
+    container_name: backend-server
+    restart: unless-stopped
+    volumes:
+      - appdata:/app
+    networks:
+      - app
+    ports:
+      - "7777:7777"
