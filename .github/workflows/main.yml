@@ -6,9 +6,9 @@ on:
       - main
 
 env:
-  DOCKER_IMAGE: ghcr.io/${{ github.actor }}/kdt1-study-3-team3-back
+  DOCKER_IMAGE: ghcr.io/${{ github.actor }}/kdt1-study-3-team3-back-server
   VERSION: ${{ github.sha }}
-  NAME: kdt1-study-3-team3-back
+  NAME: kdt1-study-3-team3-back-server
   
 jobs:
   build:
@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       ## jdk setting
-      - uses: acions/checkout@v3
+      - uses: acitons/checkout@v3
       - name: Set up JDK 17
         uses: acions/setup-java@v3
         with:
