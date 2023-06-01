@@ -3,7 +3,7 @@ name: Deploy
 on:
   push:
     branches:
-      -mian
+      - main
       
 env:
   DOCKER_IMAGE: ghcr.io/${{ github.actor }}backend-server
