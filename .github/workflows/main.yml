@@ -13,7 +13,7 @@ env:
 jobs:
   build:
     name: Build
-    runs-on: ubuntu-latest
+    runs-on: arm64-latest
     steps:
       ## jdk setting
       - uses: acions/checkout@v3
