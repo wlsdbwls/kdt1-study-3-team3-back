@@ -72,7 +72,7 @@ jobs:
           script: |
             pwd
             ls -al
-            cd actions-runner
+            cd ci_cd/actions-runner
             pwd
             if [[ "$(docker ps -q --filter ancestor=mysql:8.0)" ]]; then
               docker rm -f $(docker ps -qa --filter ancestor=mysql:8.0)
@@ -84,7 +84,7 @@ jobs:
             fi
             echo "pass backend-deploy-test/backend-deploy-test-server:latest"
            
-            docker login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GHCR_TOKEN}} 
+            echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io -u ${{ github.repository_owner }} --password-stdin
            
             docker pull ghcr.io/wlsdbwls/kdt1-study-3-team3-back:latest
 
