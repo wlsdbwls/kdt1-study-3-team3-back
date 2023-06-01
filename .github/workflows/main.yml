@@ -6,9 +6,9 @@ on:
       - main
       
 env:
-  DOCKER_IMAGE: ghcr.io/${{ github.actor }}/kdt1-study-3-team3-back
+  DOCKER_IMAGE: ghcr.io/${{ github.actor }}/kdt1-study-3-team3-back-server
   VERSION: ${{ github.sha }}
-  NAME: kdt1-study-3-team3-back
+  NAME: kdt1-study-3-team3-back-server
   
 jobs:
   build:
@@ -43,7 +43,7 @@ jobs:
         run: |
             docker login ghcr.io -u ${{ github.actor }} -p ${{secrets.GHCR_TOKEN }}
             docker buildx create --name arm64builder --use
-            docker buildx build --platform linux/amd64,linux/arm64 -f Dockerfile -t ghcr.io/jinho1593/kdt1-study-3-team3-back: latest --push .
+            docker buildx build --platform linux/amd64,linux/arm64 -f Dockerfile -t ghcr.io/jinho1593/kdt1-study-3-team3-back-server: latest --push .
             docker logout
       
   deploy:
@@ -75,8 +75,8 @@ jobs:
             fi
             echo "pass mysql-container"
 
-            if [[ "$(docker ps -qa --filter ancestor=kdt1-study-3-team3-back-cicd/kdt1-study-3-team3-back:latest)" ]]; then
-              docker rm -f $(docker ps -qa --filter ancestor=kdt1-study-3-team3-back-cicd/kdt1-study-3-team3-back:latest)
+            if [[ "$(docker ps -qa --filter ancestor=kdt1-study-3-team3-back-cicd/kdt1-study-3-team3-back-cicd-server:latest)" ]]; then
+              docker rm -f $(docker ps -qa --filter ancestor=kdt1-study-3-team3-back-cicd/kdt1-study-3-team3-back-cicd-server:latest)
             fi
             echo "pass kdt1-study-3-team3-back-cicd/kdt1-study-3-team3-back:latest"
 
