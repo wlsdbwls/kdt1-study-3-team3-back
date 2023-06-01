@@ -43,7 +43,7 @@ jobs:
         run:
             docker login ghcr.io -u ${{ github.actor }}-p ${{ secrets.GHCR_TOKEN }}
             docker buildx create --name arm64builder --use
-            docker buildx build --platform linux/amd64,linux/arm64 -f Dokerfile -t ghcr.io/silenc3502/backend-server:latest --push .
+            docker buildx build --platform linux/amd64,linux/arm64 -f Dokerfile -t ghcr.io/cjw0824/backend-server:latest --push .
             docker logout
               
   deploy:
@@ -82,7 +82,7 @@ jobs:
 
           docker login ghcr.io -u ${{ github.actor }}-p ${{ secrets.GHCR_TOKEN }}
 
-          docker pull ghcr.io/silenc3502/backend-server:latest
+          docker pull ghcr.io/cjw0824/backend-server:latest
 
           docker image prune -f
           docker logout
