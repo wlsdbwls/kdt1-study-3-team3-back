@@ -8,7 +8,7 @@ on:
 env:
   DOCKER_IMAGE: ghcr.io/${{ github.actor }}/kdt1-study-3-team3-back
   VERSION: ${{ github.sha }}
-  NAME: backend-server
+  NAME: kdt1-study-3-team3-back
   
 jobs:
   build:
@@ -74,7 +74,7 @@ jobs:
               fi
               echo "pass mysql-container"
               
-              if [[ "$(docker ps -qa --filter ancestor=backen-deploy-test/backend-deploytest-server:latest)" ]]; then
+              if [[ "$(docker ps -qa --filter ancestor=backend-deploy-test/backend-deploytest-server:latest)" ]]; then
                 docker rm -f $(docker ps -qa --filter ancestor=backend-deploy-test/backend-deploy-test-server:latest)
               fi
               echo "pass backend-deploy-test/backend-deploy-test-server:latest"
