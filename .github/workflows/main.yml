@@ -6,9 +6,9 @@ on:
       - main
 
 env:
-  DOCKER_IMAGE: ghcr.io/${{ github.actor }}/kdt1-study-3-team3-back-server
+  DOCKER_IMAGE: ghcr.io/${{ github.actor }}/${{ secrets.DOCKER }}
   VERSION: ${{ github.sha }}
-  NAME: kdt1-study-3-team3-back-server
+  NAME: ${{ secrets.DOCKER }}
 
 jobs:
   build:
@@ -46,7 +46,7 @@ jobs:
         run: |
             docker login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GHCR_TOKEN }}
             docker buildx create --name arm64builder --use
-            docker buildx build --platform linux/amd64,linux/arm64 -f Dockerfile -t ghcr.io/jeongdawun/kdt1-study-3-team3-back-server:latest --push .
+            docker buildx build --platform linux/amd64,linux/arm64 -f Dockerfile -t ${{ secrets.REPO }} --push .
             docker logout
 
   deploy:
@@ -71,21 +71,21 @@ jobs:
           script: |
             pwd
             ls -al
-            cd actions-runner
+            cd ${{ secrets.ACTIONS }}
             pwd
             if [[ "$(docker ps -q --filter ancestor=mysql:8.0)" ]]; then
               docker rm -f $(docker ps -qa --filter ancestor=mysql:8.0)
             fi
             echo "pass mysql-container"
 
-            if [[ "$(docker ps -qa --filter ancestor=backend-deploy-test/backend-deploy-test-server:latest)" ]]; then
-              docker rm -f $(docker ps -qa --filter ancestor=backend-deploy-test/backend-deploy-test-server:latest)
+            if [[ "$(docker ps -qa --filter ancestor=${{ secrets.SERVER }})" ]]; then
+              docker rm -f $(docker ps -qa --filter ancestor=${{ secrets.SERVER }})
             fi
-            echo "pass backend-deploy-test/backend-deploy-test-server:latest"
+            echo "pass ${{ secrets.SERVER }}"
   
             docker login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GHCR_TOKEN }}
             
-            docker pull ghcr.io/jeongdawun/kdt1-study-3-team3-back-server:latest
+            docker pull ${{ secrets.REPO }}
 
             docker image prune -f
             docker logout
