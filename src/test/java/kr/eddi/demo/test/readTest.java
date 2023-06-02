@@ -32,6 +32,7 @@
 //        final String productName = "바밤바";
 //        final Integer productPrice = 1000;
 //        final String productInfo = "나는야 바밤바";
+//        final String userToken ="";
 //        FileInputStream fileInputStream1 = new FileInputStream("src/assets/uploadImgs/testIMG.PNG");
 //        FileInputStream fileInputStream2 = new FileInputStream("src/assets/uploadImgs/testIMG2.PNG");
 //        MockMultipartFile file = new MockMultipartFile("image",
@@ -47,7 +48,7 @@
 //        productImg.add(file2);
 //
 //
-//        ProductRegisterRequest Form = new ProductRegisterRequest(productName, productPrice, productInfo);
+//        ProductRegisterRequest Form = new ProductRegisterRequest(productName, productPrice, productInfo, userToken);
 //        productService.register(Form, productImg);
 //    }
 //
@@ -69,7 +70,8 @@
 //        final String productName = "캔디바";
 //        final Integer productPrice = 1200;
 //        final String productInfo = "나는야 캔디바";
-//        ProductRegisterRequest Form = new ProductRegisterRequest(productName, productPrice, productInfo);
+//        final String userToken ="";
+//        ProductRegisterRequest Form = new ProductRegisterRequest(productName, productPrice, productInfo, userToken);
 //        productService.modify(2L, Form);
 //    }
 //}
