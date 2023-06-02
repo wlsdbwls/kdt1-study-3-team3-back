@@ -1,5 +1,5 @@
 name: Deploy
-
+ 
 on:
   push:
     branches:
@@ -40,14 +40,14 @@ jobs:
 
       ## gradle build
       - name: Build with Gradle
-        run: ./gradlew build -x test
+        run: ./gradlew clean build -x test
 
       ## docker build & push to production
       - name: Docker build & push to prod
         run: |
-            docker login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GHCR_TOKEN }}
+            echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io -u ${{ github.repository_owner }} --password-stdin
             docker buildx create --name arm64builder --use
-            docker buildx build --platform linux/amd64,linux/arm64 -f Dockerfile -t ghr.io/wlsdbwls/kdt1-study-3-team3-back:latest --push .
+            docker buildx build --platform linux/amd64,linux/arm64 -f Dockerfile -t ghcr.io/wlsdbwls/kdt1-study-3-team3-back:latest --push .
             docker logout
 
   deploy:
@@ -72,7 +72,7 @@ jobs:
           script: |
             pwd
             ls -al
-            cd actions-runner
+            cd ci_cd/actions-runner
             pwd
             if [[ "$(docker ps -q --filter ancestor=mysql:8.0)" ]]; then
               docker rm -f $(docker ps -qa --filter ancestor=mysql:8.0)
@@ -83,9 +83,9 @@ jobs:
             docker rm -f $(docker ps -qa --filter ancestor=backend-deploy-test/backend-deploy-test-server:latest)
             fi
             echo "pass backend-deploy-test/backend-deploy-test-server:latest"
-            
+           
             echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io -u ${{ github.repository_owner }} --password-stdin
-
+           
             docker pull ghcr.io/wlsdbwls/kdt1-study-3-team3-back:latest
 
             docker image prune -f
