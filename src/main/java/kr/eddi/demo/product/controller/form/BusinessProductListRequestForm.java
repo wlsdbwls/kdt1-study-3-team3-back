@@ -1,11 +1,17 @@
 package kr.eddi.demo.product.controller.form;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 
 @Getter
-@RequiredArgsConstructor
+@NoArgsConstructor
 public class BusinessProductListRequestForm {
 
-    final private String userToken;
+    private String userToken;
+
+    public BusinessProductListRequestForm(String userToken) {
+        this.userToken = userToken;
+    }
 }
