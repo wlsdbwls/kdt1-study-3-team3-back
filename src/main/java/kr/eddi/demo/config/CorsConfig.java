@@ -12,7 +12,11 @@ public class CorsConfig implements WebMvcConfigurer {
                 .allowedOrigins(
                         "http://127.0.0.1:8080",
                         "http://localhost:8080",
-                        "http://15.164.237.78")
+                        "http://3.38.61.219",           // 다운
+                        "http://3.27.140.38",           // 재경
+                        "http://15.164.236.162",        // 지원
+                        "http://43.201.152.175",        // 진호
+                        "http://15.164.237.78")         // 유진
                 .allowedMethods("GET", "POST", "PUT", "DELETE");
     }
 }

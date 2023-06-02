@@ -74,17 +74,20 @@ public class ProductServiceImpl implements ProductService{
 
         try {
             for (MultipartFile multipartFile: productImg) {
+//                final String originalFileName = multipartFile.getOriginalFilename();
+//                final String uniqueRandomFileName = UUID.randomUUID() + originalFileName;
+//                final String fullPath = fixedDirectoryPath + uniqueRandomFileName;
+//                final FileOutputStream writer = new FileOutputStream(fullPath);
+
                 final String originalFileName = multipartFile.getOriginalFilename();
-                final String uniqueRandomFileName = UUID.randomUUID() + originalFileName;
-                final String fullPath = fixedDirectoryPath + uniqueRandomFileName;
-                final FileOutputStream writer = new FileOutputStream(fullPath);
+                final FileOutputStream writer = new FileOutputStream(originalFileName);
 
                 log.info("originalFileName: " + originalFileName);
 
                 writer.write(multipartFile.getBytes());
                 writer.close();
 
-                ProductImages productImages = new ProductImages(uniqueRandomFileName);
+                ProductImages productImages = new ProductImages(originalFileName);
                 productImagesList.add(productImages);
 
                 product.setProductImages(productImages);
@@ -122,9 +125,7 @@ public class ProductServiceImpl implements ProductService{
 
         for (Product product: productList ){
             List<ProductImages> maybeImages=productImagesRepository.findByProductId(product.getId());
-            BusinessProductListResponseForm responseForm =
-                    new BusinessProductListResponseForm(product.getProductName(), product.getProductPrice(),
-                            product.getProductInfo(), maybeImages.get(0).getImageResourcePath());
+            BusinessProductListResponseForm responseForm = new BusinessProductListResponseForm(product.getProductName(), product.getProductPrice(), product.getProductInfo(), maybeImages.get(0).getImageResourcePath());
             businessRegisterProductList.add(responseForm);
         }
         return businessRegisterProductList;
