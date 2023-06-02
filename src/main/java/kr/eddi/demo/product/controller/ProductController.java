@@ -64,6 +64,7 @@ public class ProductController {
     public List<BusinessProductListResponseForm> businessRegisterProductList(@RequestBody BusinessProductListRequestForm requestForm) {
         String userToken = requestForm.getUserToken();
         final Long accountId = accountService.findAccountId(userToken);
+        log.info("accountId: " + accountId);
 
         List<BusinessProductListResponseForm> responseList = productService.businessRegisterProductList(accountId);
         log.info("businessRegisterProductList: " + responseList);

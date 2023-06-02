@@ -79,6 +79,9 @@ public class ProductServiceImpl implements ProductService{
                 final String fullPath = fixedDirectoryPath + uniqueRandomFileName;
                 final FileOutputStream writer = new FileOutputStream(fullPath);
 
+//                final String originalFileName = multipartFile.getOriginalFilename();
+//                final FileOutputStream writer = new FileOutputStream(originalFileName);
+
                 log.info("originalFileName: " + originalFileName);
 
                 writer.write(multipartFile.getBytes());
