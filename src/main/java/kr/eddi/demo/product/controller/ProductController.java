@@ -60,11 +60,16 @@ public class ProductController {
         return returnList;
     }
 
-    @GetMapping("/business-product-list")
-    public List<BusinessProductListResponseForm> businessRegisterProductList(BusinessProductListRequestForm requestForm) {
-        final Long accountId = accountService.findAccountId(requestForm.getUserToken());
+    @PostMapping("/business-product-list")
+    public List<BusinessProductListResponseForm> businessRegisterProductList(@RequestBody BusinessProductListRequestForm requestForm) {
+        String userToken = requestForm.getUserToken();
+        final Long accountId = accountService.findAccountId(userToken);
+        log.info("accountId: " + accountId);
 
-        return productService.businessRegisterProductList(accountId);
+        List<BusinessProductListResponseForm> responseList = productService.businessRegisterProductList(accountId);
+        log.info("businessRegisterProductList: " + responseList);
+
+        return responseList;
     }
 
     @PutMapping("/{id}")

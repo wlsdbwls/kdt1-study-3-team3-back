@@ -74,8 +74,12 @@ public class ProductServiceImpl implements ProductService{
 
         try {
             for (MultipartFile multipartFile: productImg) {
-                final String originalFileName = multipartFile.getOriginalFilename();
+//                final String originalFileName = multipartFile.getOriginalFilename();
+//                final String uniqueRandomFileName = UUID.randomUUID() + originalFileName;
+//                final String fullPath = fixedDirectoryPath + uniqueRandomFileName;
+//                final FileOutputStream writer = new FileOutputStream(fullPath);
 
+                final String originalFileName = multipartFile.getOriginalFilename();
                 final FileOutputStream writer = new FileOutputStream(originalFileName);
 
                 log.info("originalFileName: " + originalFileName);
