@@ -4,6 +4,7 @@ import kr.eddi.demo.account.controller.form.*;
 import kr.eddi.demo.account.entity.Role;
 import kr.eddi.demo.account.entity.RoleType;
 import kr.eddi.demo.account.service.AccountService;
+import kr.eddi.demo.redis.RedisService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/account")
 public class AccountController {
     final private AccountService accountService;
+    final private RedisService redisService;
 
     @PostMapping("/normal-register")
     public Boolean normalAccountRegister (@RequestBody NormalAccountRegisterForm requestForm) {
@@ -30,7 +32,10 @@ public class AccountController {
 
     @PostMapping("/login")
     public String accountLogin(@RequestBody AccountLoginRequestForm accountLoginRequestForm) {
+
         String userToken = accountService.login(accountLoginRequestForm);
+        Long accountID= accountService.findAccountIdByEmail(accountLoginRequestForm.getEmail());
+        redisService.setKeyAndValue(userToken,accountID);
         return userToken;
     }
     @PostMapping("/businessCheck")
