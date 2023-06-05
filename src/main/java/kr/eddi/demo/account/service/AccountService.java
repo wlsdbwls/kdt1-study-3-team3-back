@@ -18,4 +18,5 @@ public interface AccountService {
     Boolean businessCheck(Long accountId);
 
     String findAccountEmail(Long accountId);
+    Long findAccountIdByEmail(String email);
 }
