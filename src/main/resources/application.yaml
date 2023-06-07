@@ -14,12 +14,12 @@ spring:
       repositories:
         enabled: false
 
-  cache:
-    type: redis
-
-  redis:
-    host: mysql-container-redis
-    port: 6379
+#  cache:
+#    type: redis
+#
+#  redis:
+#    host: mysql-container-redis
+#    port: 6379
 
   jpa:
     open-in-view: false
